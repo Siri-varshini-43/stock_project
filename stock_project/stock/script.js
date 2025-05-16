@@ -72,3 +72,53 @@ document.getElementById('search').addEventListener('input', (e) => {
 });
 
 window.onload = renderStock;
+document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Prepare headers (only first 3 columns)
+  const headers = ['Item Name', 'Quantity', 'Price ($)'];
+
+  // Prepare rows from the stock array
+  const data = stock.map(item => [
+    item.name,
+    item.quantity > 0 ? item.quantity.toString() : 'Out of Stock',
+    `$${item.price.toFixed(2)}`
+  ]);
+
+  // Add a title
+  doc.text("Current Stock List", 14, 15);
+
+  // Add autoTable with data
+  doc.autoTable({
+    head: [headers],
+    body: data,
+    startY: 20,
+    styles: { fontSize: 10 },
+    theme: 'grid'
+  });
+
+  // Save the PDF
+  doc.save('stock_list.pdf');
+});
+function updateTotals() {
+  let totalProducts = 0;
+  let totalCost = 0;
+  let outOfStockCount = 0;
+  let lessThanFiveCount = 0;
+
+  stock.forEach(item => {
+    totalProducts += item.quantity;
+    totalCost += item.quantity * item.price;
+
+    if (item.quantity === 0) outOfStockCount++;
+    else if (item.quantity < 5) lessThanFiveCount++;
+  });
+
+  document.getElementById('totalProducts').textContent = totalProducts;
+  document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+  document.getElementById('outOfStockCount').textContent = outOfStockCount;
+  document.getElementById('lessThanFiveCount').textContent = lessThanFiveCount;
+}
+
+updateTotals();
