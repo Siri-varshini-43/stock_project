@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html"><i class='bx bx-home-alt'></i> Stock</a>
+      <a href="suppliers.html"><i class='bx bxs-truck'></i> Supplier</a>
+      <a href="order.html"><i class='bx bxs-package'></i> Orders</a>
+    </div>
+    <div class="nav-right">
+      <input type="text" id="searchInput" placeholder="Search...">
+    </div>
+  </nav>
+
+  <main>
+    <h1><i class='bx bx-home-alt'></i> Stock Management</h1>
+    <h2>Suppliers List</h2>
+
+    <div class="controls">
+      <button onclick="toggleAddForm()">+ Add Supplier</button>
+    </div>
+
+    <div class="suppliers-container" id="supplierCards"></div>
+
+    <!-- Add Supplier Modal -->
+    <div class="modal" id="addSupplierModal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="toggleAddForm()">−</span>
+        <h3>Add New Supplier</h3>
+        <form id="addSupplierForm">
+          <input type="text" id="supplierName" placeholder="Supplier Name*" required>
+          <input type="text" id="itemSupplied" placeholder="Item Supplied*" required>
+          <input type="email" id="email" placeholder="Email*" required>
+          <input type="tel" id="phone" placeholder="Phone*" required>
+          <input type="number" id="price" placeholder="Price per Unit*" min="0" required>
+          <div class="form-actions">
+            <button type="button" onclick="toggleAddForm()">Cancel</button>
+            <button type="submit">Add Supplier</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Place Order Modal -->
+<div id="placeOrderModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="toggleOrderModal()">&times;</span>
+    <h2>Place Order</h2>
+    <form id="placeOrderForm">
+      <p><strong>Supplier:</strong> <span id="orderSupplierName"></span></p>
+      <p><strong>Price per Unit:</strong> $<span id="orderUnitPrice"></span></p>
+      <label for="orderQuantity">Quantity:</label>
+      <input type="number" id="orderQuantity" required min="1" />
+      <p><strong>Total Cost:</strong> $<span id="orderTotalCost">0</span></p>
+      <label for="orderConfirm">Type "confirm" to proceed:</label>
+      <input type="text" id="orderConfirm" required />
+      <div class="modal-buttons">
+        <button type="submit">Confirm Order</button>
+        <button type="button" onclick="toggleOrderModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/mandlem-sirivarshini?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+        <a href="https://t.me/+916303602577" aria-label="Telegram"><i class='bx bxl-telegram'></i></a>
+        <a href="https://www.instagram.com/siri_mandlem146?igsh=eHFtMGFqcmo4Ynpy" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+        <a href="https://www.snapchat.com/add/siri_mandlem?share_id=15vXdE0lCKo&locale=en-IN" aria-label="Snapchat"><i class='bx bxl-snapchat'></i></a>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">About Me</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </nav>
+      <div class="copyright">
+        &copy; 2024 SiriVarshini | All rights reserved
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

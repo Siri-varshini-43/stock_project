@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html"><i class='bx bx-home-alt'></i> Stock</a>
+      <a href="suppliers.html"><i class='bx bxs-truck'></i> Supplier</a>
+      <a href="order.html"><i class='bx bxs-package'></i> Orders</a>
+    </div>
+    <div class="nav-right">
+      <input type="text" id="search" placeholder="Search...">
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+        <div class="header">
+        <div class="header-text">
+        <h1><i class='bx bx-home-alt'></i> Stock Management</h1>
+        <br>
+        <h2>Current stock</h2>
+        </div>
+        <div class="buttons-container">
+          <button id="addItemBtn">Add New Item</button>
+          <button id="downloadPdfBtn">Download PDF</button>
+        </div>
+    </div>
+
+      <table id="stockTable">
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="stockBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="itemModal">
+    <div class="modal-content">
+      <h3>Add New Item</h3>
+      <input type="text" id="itemName" placeholder="Item Name">
+      <input type="number" id="itemQty" placeholder="Initial Quantity">
+      <input type="number" id="itemPrice" placeholder="Price ($)">
+      <div class="modal-actions">
+        <button onclick="closeModal()">Cancel</button>
+        <button onclick="addItem()">Add Item</button>
+      </div>
+    </div>
+  </div>
+  <div class="totals">
+  <p>Total Products: <span id="totalProducts">0</span></p>
+  <p>Total Cost: $<span id="totalCost">0.00</span></p>
+  <p>Out of Stock Items: <span id="outOfStockCount">0</span></p>
+  <p>Items with less than 5: <span id="lessThanFiveCount">0</span></p>
+</div>
+        <footer class="footer">
+    <div class="footer-content">
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/mandlem-sirivarshini?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+        <a href="https://t.me/+916303602577" aria-label="Telegram"><i class='bx bxl-telegram'></i></a>
+        <a href="https://www.instagram.com/siri_mandlem146?igsh=eHFtMGFqcmo4Ynpy" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+        <a href="https://www.snapchat.com/add/siri_mandlem?share_id=15vXdE0lCKo&locale=en-IN" aria-label="Snapchat"><i class='bx bxl-snapchat'></i></a>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">About Me</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </nav>
+      <div class="copyright">
+        &copy; 2024 SiriVarshini | All rights reserved
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
