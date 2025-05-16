@@ -1,6 +1,7 @@
 window.onload = function () {
   const ordersList = document.getElementById("ordersList");
   const searchInput = document.getElementById("searchInput");
+  const downloadBtn = document.getElementById("downloadPdfBtn");
 
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -44,6 +45,46 @@ window.onload = function () {
     );
     renderOrders(filteredOrders);
   });
+
+  // PDF Export as Table (excluding buttons column)
+  if (downloadBtn) {
+    downloadBtn.addEventListener("click", () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const table = document.getElementById("ordersTable");
+      const headers = [];
+      const data = [];
+
+      // Get headers excluding the last one (buttons)
+      const headerCells = table.querySelectorAll("thead tr th");
+      headerCells.forEach((th, i) => {
+        if (i < headerCells.length - 1) headers.push(th.innerText);
+      });
+
+      // Get rows
+      const rows = table.querySelectorAll("tbody tr");
+      rows.forEach(row => {
+        const rowData = [];
+        const cells = row.querySelectorAll("td");
+        cells.forEach((cell, i) => {
+          if (i < cells.length - 1) rowData.push(cell.innerText);
+        });
+        data.push(rowData);
+      });
+
+      doc.text("Orders List", 14, 15);
+      doc.autoTable({
+        head: [headers],
+        body: data,
+        startY: 20,
+        styles: { fontSize: 10 },
+        theme: "grid"
+      });
+
+      doc.save("orders.pdf");
+    });
+  }
 };
 
 function removeOrder(index) {
