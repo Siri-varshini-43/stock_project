@@ -4,7 +4,7 @@ A responsive and lightweight stock management system built using HTML, CSS, and 
 
 ## 📸 Demo
 
-- [Desktop Preview](http://127.0.0.1:5500/stock/index.html)
+- [Desktop Preview](https://siri-varshini-43.github.io/stock_project/)
 
 ## 🛠️ Prerequisites
 
