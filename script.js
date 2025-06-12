@@ -7,8 +7,17 @@ function renderStock() {
   stock.forEach((item, i) => {
     const row = document.createElement('tr');
 
-    const outOfStock = item.quantity <= 0;
-    const quantityDisplay = outOfStock ? `<span class='out-of-stock'>Out of Stock</span>` : item.quantity;
+    if (item.quantity <= 0) {
+      row.classList.add('out-of-stock-row');
+    } else if (item.quantity < 5) {
+      row.classList.add('low-stock-row');
+    }
+
+    const quantityDisplay = item.quantity <= 0 ? 'Out of Stock' : item.quantity;
+
+    // Disable conditions for buttons
+    const disableMinus1 = item.quantity <= 0;
+    const disableMinus5 = item.quantity < 5;
 
     row.innerHTML = `
       <td>${item.name}</td>
@@ -17,18 +26,21 @@ function renderStock() {
       <td>
         <button onclick="updateQuantity(${i}, 1)">+1</button>
         <button onclick="updateQuantity(${i}, 5)">+5</button>
-        <button onclick="updateQuantity(${i}, -1)">-1</button>
-        <button onclick="updateQuantity(${i}, -5)">-5</button>
+        <button onclick="updateQuantity(${i}, -1)" ${disableMinus1 ? 'disabled' : ''}>-1</button>
+        <button onclick="updateQuantity(${i}, -5)" ${disableMinus5 ? 'disabled' : ''}>-5</button>
       </td>
       <td>
-        <button onclick="deleteItem(${i})" style="background:red;">Delete</button>
+        <button onclick="deleteItem(${i})" style="background:red; color:white;">Delete</button>
       </td>
     `;
+
     tbody.appendChild(row);
   });
 
   localStorage.setItem('stockList', JSON.stringify(stock));
+  updateTotals();
 }
+
 
 function updateQuantity(index, change) {
   stock[index].quantity += change;
@@ -72,6 +84,7 @@ document.getElementById('search').addEventListener('input', (e) => {
 });
 
 window.onload = renderStock;
+
 document.getElementById('downloadPdfBtn').addEventListener('click', () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -81,7 +94,7 @@ document.getElementById('downloadPdfBtn').addEventListener('click', () => {
 
   // Prepare rows from the stock array
   const data = stock.map(item => [
-    item.name,
+    item.quantity > 0 ? item.name : `${item.name} (Out of Stock)`,
     item.quantity > 0 ? item.quantity.toString() : 'Out of Stock',
     `$${item.price.toFixed(2)}`
   ]);
@@ -101,6 +114,7 @@ document.getElementById('downloadPdfBtn').addEventListener('click', () => {
   // Save the PDF
   doc.save('stock_list.pdf');
 });
+
 function updateTotals() {
   let totalProducts = 0;
   let totalCost = 0;
@@ -120,5 +134,3 @@ function updateTotals() {
   document.getElementById('outOfStockCount').textContent = outOfStockCount;
   document.getElementById('lessThanFiveCount').textContent = lessThanFiveCount;
 }
-
-updateTotals();
