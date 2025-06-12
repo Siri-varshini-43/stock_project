@@ -238,3 +238,12 @@ th, td {
   color: #333;
   font-size: 16px;
 }
+.out-of-stock-row {
+  background-color: #f8d7da; /* subtle light red */
+  color: #842029; /* dark red text */
+}
+
+.low-stock-row {
+  background-color: #fff3cd; /* subtle light yellow */
+  color: #664d03; /* dark yellow/brown text */
+}
